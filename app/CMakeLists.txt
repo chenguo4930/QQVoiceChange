@@ -9,16 +9,18 @@ set(distribution_DIR ../../../../libs)
 add_library( fmod
              SHARED
              IMPORTED )
-#${ANDROID_ABI} 替换armeanbi x86 arm64-v8a
-set_target_properties(fmod
-                      PROPERTIES IMPORTED_LOCATION
-                      ${distribution_DIR}/${ANDROID_ABI}/libfmod.so)
-add_library( fmodL
-             SHARED
-             IMPORTED )
-set_target_properties(fmodL
-                      PROPERTIES IMPORTED_LOCATION
-                      ${distribution_DIR}/${ANDROID_ABI}/libfmodL.so)
+
+set_target_properties( fmod
+                       PROPERTIES IMPORTED_LOCATION
+                       #ANDROID_ABI 预编译的变量，使用对应的编译工具链编译
+                       ${distribution_DIR}/${ANDROID_ABI}/libfmod.so)
+
+ add_library( fmodL
+              SHARED
+              IMPORTED)
+ set_target_properties( fmodL
+                        PROPERTIES IMPORTED_LOCATION
+                        ${distribution_DIR}/${ANDROID_ABI}/libfmodL.so)
 
 #linux编译特性，表示使用c++11
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
